@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lata's Nail Studio & Academy | Kandivali West, Mumbai</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --nude: #f5e6dc;
+    --nude-dark: #eed5c5;
+    --blush: #e8c4b0;
+    --rose: #c9896a;
+    --rose-deep: #b5704f;
+    --cream: #fdf8f5;
+    --white: #ffffff;
+    --text-dark: #2a1f1a;
+    --text-mid: #7a5c50;
+    --text-light: #b89a8e;
+    --shadow: 0 8px 40px rgba(180,120,90,0.12);
+    --shadow-hover: 0 16px 60px rgba(180,120,90,0.22);
+    --radius: 20px;
+    --radius-sm: 10px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--nude); }
+  ::-webkit-scrollbar-thumb { background: var(--rose); border-radius: 10px; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 74px;
+    background: rgba(253,248,245,0.88);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(232,196,176,0.35);
+    transition: box-shadow .3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 30px rgba(180,120,90,0.10); }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--blush), var(--rose));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 16px;
+  }
+  .nav-logo-text { line-height: 1.1; }
+  .nav-logo-text strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; color: var(--text-dark);
+    font-weight: 600;
+  }
+  .nav-logo-text span { font-size: 10px; color: var(--text-light); letter-spacing: 1.5px; text-transform: uppercase; }
+
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 13px; font-weight: 500;
+    color: var(--text-mid); letter-spacing: .5px;
+    transition: color .2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 1.5px;
+    background: var(--rose); transform: scaleX(0); transition: transform .25s;
+  }
+  .nav-links a:hover { color: var(--rose); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-cta {
+    background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+    color: white !important; padding: 9px 22px;
+    border-radius: 50px; font-weight: 500 !important;
+    letter-spacing: .5px;
+    box-shadow: 0 4px 18px rgba(181,112,79,0.35);
+    transition: transform .2s, box-shadow .2s !important;
+  }
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(181,112,79,0.45) !important; color: white !important; }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { width: 24px; height: 2px; background: var(--rose); border-radius: 2px; transition: .3s; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 100px 5vw 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-blob {
+    position: absolute; border-radius: 50%; filter: blur(80px); opacity: .55; pointer-events: none;
+  }
+  .hero-blob-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, #f0cfc0 0%, transparent 70%);
+    top: -100px; right: -100px;
+  }
+  .hero-blob-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, #edd5c8 0%, transparent 70%);
+    bottom: 0; left: 10%;
+  }
+
+  .hero-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+    max-width: 1300px; margin: 0 auto; width: 100%;
+    position: relative; z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,196,176,0.4); border: 1px solid rgba(201,137,106,0.3);
+    padding: 6px 16px; border-radius: 50px; margin-bottom: 22px;
+    font-size: 12px; font-weight: 500; color: var(--rose-deep); letter-spacing: 1px; text-transform: uppercase;
+  }
+  .hero-badge i { font-size: 10px; }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5.5vw, 72px);
+    line-height: 1.12;
+    color: var(--text-dark);
+    margin-bottom: 22px;
+  }
+  .hero-title em { color: var(--rose); font-style: italic; }
+
+  .hero-sub {
+    font-size: 15px; color: var(--text-mid);
+    max-width: 420px; line-height: 1.8;
+    margin-bottom: 36px; font-weight: 300;
+  }
+
+  .hero-stats {
+    display: flex; gap: 30px; margin-bottom: 40px;
+  }
+  .hero-stat-item { text-align: center; }
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700; color: var(--rose-deep); line-height: 1;
+  }
+  .hero-stat-label { font-size: 11px; color: var(--text-light); letter-spacing: .5px; margin-top: 3px; }
+  .hero-stat-divider { width: 1px; background: var(--nude-dark); }
+
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+    color: white; padding: 14px 32px;
+    border-radius: 50px; font-size: 14px; font-weight: 500;
+    text-decoration: none; letter-spacing: .5px;
+    box-shadow: 0 6px 24px rgba(181,112,79,0.38);
+    transition: transform .2s, box-shadow .2s;
+    border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(181,112,79,0.48); }
+  .btn-outline {
+    background: transparent; color: var(--rose-deep);
+    border: 1.5px solid var(--blush);
+    padding: 13px 30px; border-radius: 50px; font-size: 14px; font-weight: 500;
+    text-decoration: none; letter-spacing: .5px;
+    transition: background .2s, border-color .2s, transform .2s;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-outline:hover { background: var(--nude); border-color: var(--rose); transform: translateY(-2px); }
+
+  .hero-img-wrap {
+    position: relative; display: flex; justify-content: center; align-items: center;
+  }
+  .hero-img-frame {
+    width: 100%; max-width: 500px;
+    aspect-ratio: 4/5;
+    border-radius: 40px 12px 40px 12px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(180,100,70,0.22);
+    position: relative;
+  }
+  .hero-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+  .hero-float-card {
+    position: absolute; background: white;
+    padding: 12px 18px; border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(180,100,70,0.18);
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 500; color: var(--text-dark);
+    animation: floatY 3s ease-in-out infinite;
+  }
+  .hero-float-card.card-top { top: 30px; right: -10px; }
+  .hero-float-card.card-bot { bottom: 40px; left: -20px; }
+  .float-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--nude), var(--blush));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .float-stars { color: #f5a623; font-size: 11px; }
+
+  @keyframes floatY {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 90px 5vw; }
+  .section-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--rose); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 3.5vw, 50px);
+    line-height: 1.2; color: var(--text-dark);
+    margin-bottom: 16px;
+  }
+  .section-title em { color: var(--rose); font-style: italic; }
+  .section-sub {
+    font-size: 15px; color: var(--text-mid); line-height: 1.8;
+    max-width: 520px; font-weight: 300;
+  }
+  .section-header { margin-bottom: 56px; }
+  .center { text-align: center; }
+  .center .section-sub { margin: 0 auto; }
+
+  .max-w { max-width: 1300px; margin: 0 auto; }
+
+  /* ── ABOUT ── */
+  .about { background: white; }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .about-imgs { position: relative; }
+  .about-img-main {
+    width: 85%; aspect-ratio: 3/4;
+    border-radius: 40px 12px 40px 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .about-img-main img { width: 100%; height: 100%; object-fit: cover; }
+  .about-img-accent {
+    position: absolute; bottom: -30px; right: 0;
+    width: 55%; aspect-ratio: 1;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(180,100,70,0.18);
+    border: 5px solid white;
+  }
+  .about-img-accent img { width: 100%; height: 100%; object-fit: cover; }
+  .about-badge-since {
+    position: absolute; top: 20px; right: 30px;
+    background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+    color: white; padding: 14px 20px; border-radius: 18px;
+    text-align: center; box-shadow: 0 8px 30px rgba(181,112,79,0.4);
+  }
+  .about-badge-since .year { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; line-height: 1; }
+  .about-badge-since .label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; opacity: .85; }
+
+  .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+  .about-feat {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 500; color: var(--text-mid);
+  }
+  .about-feat i { color: var(--rose); font-size: 15px; }
+
+  /* ── SERVICES ── */
+  .services { background: var(--cream); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .service-card {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform .3s, box-shadow .3s;
+    cursor: default;
+  }
+  .service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); }
+  .service-img {
+    width: 100%; height: 200px; overflow: hidden;
+    position: relative;
+  }
+  .service-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+  .service-card:hover .service-img img { transform: scale(1.06); }
+  .service-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(42,31,26,0.35) 0%, transparent 60%);
+  }
+  .service-body { padding: 22px; }
+  .service-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--nude), var(--blush));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; margin-bottom: 12px;
+    color: var(--rose-deep);
+  }
+  .service-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 600; margin-bottom: 7px;
+  }
+  .service-desc { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+
+  /* ── WHY US ── */
+  .why { background: white; }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .why-card {
+    background: var(--cream);
+    border-radius: var(--radius);
+    padding: 36px 28px;
+    text-align: center;
+    border: 1px solid transparent;
+    transition: border-color .3s, box-shadow .3s, transform .3s;
+  }
+  .why-card:hover {
+    border-color: var(--blush);
+    box-shadow: 0 12px 40px rgba(180,100,70,0.12);
+    transform: translateY(-4px);
+  }
+  .why-icon {
+    width: 64px; height: 64px;
+    background: linear-gradient(135deg, var(--blush), var(--rose));
+    border-radius: 20px; margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; color: white;
+    box-shadow: 0 8px 24px rgba(181,112,79,0.28);
+  }
+  .why-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 600; margin-bottom: 10px;
+  }
+  .why-desc { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+
+  /* ── GALLERY ── */
+  .gallery { background: var(--cream); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    gap: 14px;
+  }
+  .gallery-item {
+    overflow: hidden; border-radius: 16px;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; display: block; }
+  .gallery-item:hover img { transform: scale(1.07); }
+  .gallery-item .g-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(42,31,26,0.45) 0%, transparent 55%);
+    opacity: 0; transition: opacity .3s;
+    display: flex; align-items: flex-end; padding: 14px;
+  }
+  .gallery-item:hover .g-overlay { opacity: 1; }
+  .g-label { font-size: 12px; color: white; font-weight: 500; letter-spacing: .5px; }
+
+  .g1 { grid-column: span 5; grid-row: span 2; min-height: 400px; }
+  .g2 { grid-column: span 4; min-height: 190px; }
+  .g3 { grid-column: span 3; min-height: 190px; }
+  .g4 { grid-column: span 4; min-height: 190px; }
+  .g5 { grid-column: span 3; min-height: 190px; }
+  .g6 { grid-column: span 4; min-height: 240px; }
+  .g7 { grid-column: span 8; min-height: 240px; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: white; }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .testi-card {
+    background: var(--cream);
+    border-radius: var(--radius);
+    padding: 34px 28px;
+    position: relative;
+    border: 1px solid var(--nude-dark);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .testi-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+  .testi-quote {
+    font-size: 52px; line-height: .8;
+    font-family: 'Playfair Display', serif;
+    color: var(--blush); margin-bottom: 12px;
+  }
+  .testi-text {
+    font-size: 14px; color: var(--text-mid);
+    line-height: 1.8; margin-bottom: 22px; font-style: italic;
+  }
+  .testi-footer { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--nude), var(--blush));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .testi-name { font-weight: 600; font-size: 14px; }
+  .testi-stars { color: #f5a623; font-size: 12px; }
+  .testi-meta { font-size: 11px; color: var(--text-light); }
+
+  .rating-bar {
+    display: flex; align-items: center; justify-content: center; gap: 24px;
+    background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+    border-radius: 20px; padding: 28px 40px;
+    margin-bottom: 50px;
+    box-shadow: 0 12px 40px rgba(181,112,79,0.3);
+  }
+  .rating-big { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700; color: white; line-height: 1; }
+  .rating-info { color: rgba(255,255,255,0.9); }
+  .rating-stars { font-size: 20px; color: #ffd700; margin-bottom: 4px; }
+  .rating-count { font-size: 13px; opacity: .85; }
+  .rating-divider { width: 1px; height: 50px; background: rgba(255,255,255,0.3); }
+  .rating-text { font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.6; max-width: 180px; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, #3d2016 0%, #6b3520 50%, #3d2016 100%);
+    padding: 100px 5vw;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+  .cta-tag { font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blush); margin-bottom: 16px; }
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    color: white; line-height: 1.2; margin-bottom: 18px;
+  }
+  .cta-title em { color: var(--blush); font-style: italic; }
+  .cta-sub { font-size: 15px; color: rgba(255,255,255,0.7); margin-bottom: 40px; line-height: 1.8; }
+  .btn-white {
+    background: white; color: var(--rose-deep);
+    padding: 15px 38px; border-radius: 50px;
+    font-size: 14px; font-weight: 600; text-decoration: none;
+    letter-spacing: .5px; display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-white:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,0.35); }
+  .cta-contact {
+    margin-top: 22px; font-size: 13px; color: rgba(255,255,255,0.55);
+  }
+  .cta-contact a { color: var(--blush); text-decoration: none; }
+  .cta-contact a:hover { color: white; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #1e110c;
+    color: rgba(255,255,255,0.7);
+    padding: 60px 5vw 28px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 50px; margin-bottom: 48px;
+  }
+  .footer-brand .nav-logo { margin-bottom: 18px; }
+  .footer-brand .nav-logo-text strong,
+  .footer-brand .nav-logo-text span { color: rgba(255,255,255,0.85); }
+  .footer-brand p { font-size: 13px; line-height: 1.8; max-width: 260px; opacity: .65; }
+  .footer-social { display: flex; gap: 10px; margin-top: 22px; }
+  .social-btn {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.7); font-size: 15px; text-decoration: none;
+    transition: background .2s, color .2s, transform .2s;
+  }
+  .social-btn:hover { background: var(--rose); color: white; transform: translateY(-2px); }
+
+  .footer-col h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; color: white; margin-bottom: 18px;
+    font-weight: 500;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a {
+    text-decoration: none; color: rgba(255,255,255,0.55);
+    font-size: 13px; transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--blush); }
+  .footer-info { display: flex; flex-direction: column; gap: 12px; }
+  .footer-info-item { display: flex; gap: 10px; align-items: flex-start; }
+  .footer-info-item i { color: var(--rose); font-size: 14px; margin-top: 2px; flex-shrink: 0; }
+  .footer-info-item span { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+  .footer-hours { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 22px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: rgba(255,255,255,0.3);
+  }
+  .footer-bottom a { color: var(--blush); text-decoration: none; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── MOBILE NAV ── */
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(253,248,245,0.97); backdrop-filter: blur(20px);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 32px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; color: var(--text-dark); text-decoration: none;
+    transition: color .2s;
+  }
+  .mobile-menu a:hover { color: var(--rose); }
+  .mobile-close {
+    position: absolute; top: 22px; right: 24px;
+    background: none; border: none; font-size: 26px;
+    color: var(--text-mid); cursor: pointer;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .hero-inner, .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-img-wrap { order: -1; }
+    .hero-img-frame { max-width: 100%; aspect-ratio: 16/10; border-radius: 24px; }
+    .hero-float-card.card-top { top: 12px; right: 12px; }
+    .hero-float-card.card-bot { bottom: 12px; left: 12px; }
+    .about-img-main { width: 75%; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .g1 { grid-column: span 12; min-height: 280px; }
+    .g2, .g3, .g4, .g5 { grid-column: span 6; }
+    .g6, .g7 { grid-column: span 12; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .rating-bar { flex-direction: column; gap: 14px; text-align: center; }
+    .rating-divider { width: 50px; height: 1px; }
+  }
+  @media (max-width: 600px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 18px; }
+    .hero-btns { flex-direction: column; align-items: flex-start; }
+    .services-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .g2, .g3, .g4, .g5 { grid-column: span 12; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    .about-features { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon"><i class="fa-solid fa-spa"></i></div>
+    <div class="nav-logo-text">
+      <strong>Lata's Nail Studio</strong>
+      <span>& Academy</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="tel:+91XXXXXXXXXX" class="nav-cta"><i class="fa-solid fa-phone"></i> Book Now</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose"><i class="fa-solid fa-xmark"></i></button>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#gallery" onclick="closeMobile()">Gallery</a>
+  <a href="#testimonials" onclick="closeMobile()">Reviews</a>
+  <a href="tel:+91XXXXXXXXXX" onclick="closeMobile()" style="color:var(--rose);font-size:22px;">📞 Book Appointment</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="hero-inner">
+    <div class="hero-content reveal">
+      <div class="hero-badge"><i class="fa-solid fa-star"></i> Mumbai's Premium Nail Studio</div>
+      <h1 class="hero-title">
+        Where Beauty<br>
+        Meets <em>Artistry</em>
+      </h1>
+      <p class="hero-sub">
+        Elevate your nails with precision, passion, and premium care — at Kandivali's most loved nail studio & training academy since 2019.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <div class="hero-stat-num">4.9★</div>
+          <div class="hero-stat-label">Google Rating</div>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num">84+</div>
+          <div class="hero-stat-label">Happy Clients</div>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-num">5+</div>
+          <div class="hero-stat-label">Yrs Experience</div>
+        </div>
+      </div>
+      <div class="hero-btns">
+        <a href="tel:+91XXXXXXXXXX" class="btn-primary"><i class="fa-solid fa-calendar-check"></i> Book Appointment</a>
+        <a href="#services" class="btn-outline"><i class="fa-solid fa-sparkles"></i> View Services</a>
+      </div>
+    </div>
+    <div class="hero-img-wrap reveal">
+      <div class="hero-img-frame">
+        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80" alt="Luxury nail art">
+        <div class="service-img-overlay"></div>
+      </div>
+      <div class="hero-float-card card-top">
+        <div class="float-icon">💅</div>
+        <div>
+          <div>Premium Nail Art</div>
+          <div class="float-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="hero-float-card card-bot">
+        <div class="float-icon">🎓</div>
+        <div>
+          <div>Nail Academy</div>
+          <div style="font-size:11px;color:var(--text-light)">Professional Training</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="max-w">
+    <div class="about-grid">
+      <div class="about-imgs reveal">
+        <div class="about-img-main">
+          <img src="https://images.unsplash.com/photo-1632345031435-8727f592d8db?w=700&q=80" alt="Salon interior">
+        </div>
+        <div class="about-img-accent">
+          <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=400&q=80" alt="Nail art close up">
+        </div>
+        <div class="about-badge-since">
+          <div class="year">2019</div>
+          <div class="label">Est.</div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <div class="section-tag">Our Story</div>
+        <h2 class="section-title">A Sanctuary of <em>Nail Artistry</em></h2>
+        <p style="font-size:15px;color:var(--text-mid);line-height:1.9;margin-bottom:16px;font-weight:300;">
+          Since 2019, Lata's Nail Studio & Academy has been Kandivali's destination for premium nail services. Founded with a passion for beauty and a commitment to excellence, we bring together skilled artistry with a warm, hygienic, and welcoming atmosphere.
+        </p>
+        <p style="font-size:15px;color:var(--text-mid);line-height:1.9;margin-bottom:28px;font-weight:300;">
+          From flawless gel extensions and intricate nail art to permanent tattoos and professional nail training — every service is delivered with the highest standards. Our studio is not just a beauty destination; it's a place where confidence is crafted.
+        </p>
+        <div class="about-features">
+          <div class="about-feat"><i class="fa-solid fa-check-circle"></i> 5+ Years of Excellence</div>
+          <div class="about-feat"><i class="fa-solid fa-check-circle"></i> Hygienic Equipment</div>
+          <div class="about-feat"><i class="fa-solid fa-check-circle"></i> Premium Quality Products</div>
+          <div class="about-feat"><i class="fa-solid fa-check-circle"></i> Certified Nail Artists</div>
+          <div class="about-feat"><i class="fa-solid fa-check-circle"></i> Nail Training Academy</div>
+          <div class="about-feat"><i class="fa-solid fa-check-circle"></i> Warm, Luxury Ambiance</div>
+        </div>
+        <div style="margin-top:32px;">
+          <a href="#services" class="btn-primary"><i class="fa-solid fa-arrow-right"></i> Explore Our Services</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="max-w">
+    <div class="section-header center reveal">
+      <div class="section-tag">What We Offer</div>
+      <h2 class="section-title">Our <em>Signature</em> Services</h2>
+      <p class="section-sub">From intricate nail art to professional training — we offer a comprehensive suite of beauty services tailored for you.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=75" alt="Acrylic Nails">
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body">
+          <div class="service-icon"><i class="fa-solid fa-gem"></i></div>
+          <div class="service-name">Acrylic Extensions</div>
+          <p class="service-desc">Long-lasting, perfectly shaped acrylic nail extensions for a stunning, sculpted look that keeps its beauty.</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600&q=75" alt="Gel Nail Art">
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body">
+          <div class="service-icon"><i class="fa-solid fa-palette"></i></div>
+          <div class="service-name">Gel Nail Art</div>
+          <p class="service-desc">Vibrant, chip-resistant gel nail art with creative designs — from minimalist to bold, every nail tells a story.</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=75" alt="French Manicure">
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body">
+          <div class="service-icon"><i class="fa-solid fa-hand-sparkles"></i></div>
+          <div class="service-name">French Manicure</div>
+          <p class="service-desc">The timeless classic — crisp white tips and flawless gel finish for that eternally elegant, clean look.</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600&q=75" alt="Pedicure">
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body">
+          <div class="service-icon"><i class="fa-solid fa-heart"></i></div>
+          <div class="service-name">Pedicure</div>
+          <p class="service-desc">Relaxing, rejuvenating pedicure treatments that leave your feet soft, clean, and beautifully polished.</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=75" alt="Nail Refill">
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body">
+          <div class="service-icon"><i class="fa-solid fa-rotate"></i></div>
+          <div class="service-name">Nail Refill & Repair</div>
+          <p class="service-desc">Maintain and restore your nail extensions with professional refill and tip repair services, as good as new.</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75" alt="Tattoos">
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body">
+          <div class="service-icon"><i class="fa-solid fa-pen-nib"></i></div>
+          <div class="service-name">Permanent Tattoos</div>
+          <p class="service-desc">Artful, precise permanent and colour tattoos crafted by skilled artists — wear your story on your skin.</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=75" alt="Nail Academy">
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body">
+          <div class="service-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="service-name">Nail Academy Training</div>
+          <p class="service-desc">Kickstart your career with professional nail technician courses — hands-on training from certified experts.</p>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=75" alt="Basic Manicure">
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-body">
+          <div class="service-icon"><i class="fa-solid fa-spa"></i></div>
+          <div class="service-name">Basic Manicure</div>
+          <p class="service-desc">Classic nail care with shaping, cuticle care, and polish — a foundational service for well-groomed hands.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why" id="why">
+  <div class="max-w">
+    <div class="section-header center reveal">
+      <div class="section-tag">Our Promise</div>
+      <h2 class="section-title">Why Choose <em>Lata's</em></h2>
+      <p class="section-sub">We don't just do nails — we deliver an experience that leaves you feeling confident, cared for, and beautiful.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon"><i class="fa-solid fa-award"></i></div>
+        <div class="why-title">Premium Quality Products</div>
+        <p class="why-desc">We use only top-grade, skin-safe products and professional-grade tools for every service, every time.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><i class="fa-solid fa-shield-heart"></i></div>
+        <div class="why-title">Hygienic Environment</div>
+        <p class="why-desc">Sterilized equipment, clean workstations, and strict hygiene protocols ensure your safety is always our priority.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><i class="fa-solid fa-star"></i></div>
+        <div class="why-title">Skilled Nail Artists</div>
+        <p class="why-desc">Our team of certified, experienced nail technicians brings creativity and precision to every set of nails.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><i class="fa-solid fa-gem"></i></div>
+        <div class="why-title">Affordable Luxury</div>
+        <p class="why-desc">A high-end salon experience at prices that make beauty accessible — premium never has to mean overpriced.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="max-w">
+    <div class="section-header center reveal">
+      <div class="section-tag">Our Work</div>
+      <h2 class="section-title">A Glimpse of our <em>Artistry</em></h2>
+      <p class="section-sub">Every nail set is a canvas. Browse our gallery of designs, extensions, and tattoo work.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item g1">
+        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&q=80" alt="Nail art">
+        <div class="g-overlay"><span class="g-label">Signature Nail Art</span></div>
+      </div>
+      <div class="gallery-item g2">
+        <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600&q=80" alt="Gel nails">
+        <div class="g-overlay"><span class="g-label">Gel Extensions</span></div>
+      </div>
+      <div class="gallery-item g3">
+        <img src="https://images.unsplash.com/photo-1632345031435-8727f592d8db?w=500&q=80" alt="Salon interior">
+        <div class="g-overlay"><span class="g-label">Our Studio</span></div>
+      </div>
+      <div class="gallery-item g4">
+        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80" alt="Acrylic nails">
+        <div class="g-overlay"><span class="g-label">Acrylic Art</span></div>
+      </div>
+      <div class="gallery-item g5">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Tattoo work">
+        <div class="g-overlay"><span class="g-label">Tattoo Art</span></div>
+      </div>
+      <div class="gallery-item g6">
+        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80" alt="Beauty portrait">
+        <div class="g-overlay"><span class="g-label">Beauty & Care</span></div>
+      </div>
+      <div class="gallery-item g7">
+        <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=900&q=80" alt="French manicure">
+        <div class="g-overlay"><span class="g-label">French Manicure</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="max-w">
+    <div class="section-header center reveal">
+      <div class="section-tag">Client Love</div>
+      <h2 class="section-title">What Our <em>Clients</em> Say</h2>
+    </div>
+
+    <div class="rating-bar reveal">
+      <div class="rating-big">4.9</div>
+      <div class="rating-divider"></div>
+      <div class="rating-info">
+        <div class="rating-stars">★★★★★</div>
+        <div class="rating-count">Based on 84+ Google Reviews</div>
+      </div>
+      <div class="rating-divider"></div>
+      <div class="rating-text">Kandivali West's most loved nail studio & academy</div>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Absolutely love this place! The nail art here is stunning and the staff is so professional. Been coming for over a year and every single time I leave feeling like a queen. Highly recommend Lata's to everyone!</p>
+        <div class="testi-footer">
+          <div class="testi-avatar">👩</div>
+          <div>
+            <div class="testi-name">Priya Sharma</div>
+            <div class="testi-stars">★★★★★</div>
+            <div class="testi-meta">Regular Client · Kandivali</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Got my gel extensions done and they look incredible. The studio is so clean and hygienic, which matters a lot to me. Lata herself is extremely skilled and makes you feel so comfortable throughout.</p>
+        <div class="testi-footer">
+          <div class="testi-avatar">👩‍🦱</div>
+          <div>
+            <div class="testi-name">Meera Patel</div>
+            <div class="testi-stars">★★★★★</div>
+            <div class="testi-meta">First-time Client · Borivali</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">I enrolled for nail training here and it was the best decision! The course is comprehensive, hands-on, and truly prepares you for a professional career. Thank you Lata's Academy for changing my life!</p>
+        <div class="testi-footer">
+          <div class="testi-avatar">👩‍🎓</div>
+          <div>
+            <div class="testi-name">Sneha Joshi</div>
+            <div class="testi-stars">★★★★★</div>
+            <div class="testi-meta">Academy Graduate · Mumbai</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner reveal">
+    <div class="cta-tag"><i class="fa-solid fa-spa"></i> &nbsp; Ready to Glow</div>
+    <h2 class="cta-title">Book Your <em>Dream Nails</em> Today</h2>
+    <p class="cta-sub">Walk into a world of luxury, creativity, and care. Whether it's a stunning new set, a relaxing pedicure, or your first tattoo — we're here for all of it.</p>
+    <a href="tel:+91XXXXXXXXXX" class="btn-white"><i class="fa-solid fa-phone"></i> Call & Book Appointment</a>
+    <div class="cta-contact">
+      Or visit us at <a href="https://maps.google.com" target="_blank">Shop No 7, Vishwdeep Height, K.T. Soni Road, Mahavir Nagar, Kandivali West, Mumbai – 400067</a>
+    </div>
+    <div style="margin-top:28px;color:rgba(255,255,255,0.5);font-size:12px;letter-spacing:1px;">
+      MON – SAT &nbsp;·&nbsp; 11:00 AM – 8:00 PM &nbsp;·&nbsp; Sunday Closed
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="max-w">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="margin-bottom:16px;display:inline-flex;">
+          <div class="nav-logo-icon"><i class="fa-solid fa-spa"></i></div>
+          <div class="nav-logo-text">
+            <strong>Lata's Nail Studio</strong>
+            <span>& Academy</span>
+          </div>
+        </a>
+        <p>Kandivali's premium nail studio and academy — where artistry, hygiene, and luxury come together since 2019.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-btn"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Book Appointment</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="#">Acrylic Extensions</a></li>
+          <li><a href="#">Gel Nail Art</a></li>
+          <li><a href="#">French Manicure</a></li>
+          <li><a href="#">Pedicure</a></li>
+          <li><a href="#">Tattoo Studio</a></li>
+          <li><a href="#">Nail Academy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="footer-info">
+          <div class="footer-info-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Shop No 7, Vishwdeep Height, Near Ocean Cake Shop, K.T. Soni Road, Mahavir Nagar, Kandivali West, Mumbai – 400067</span>
+          </div>
+          <div class="footer-info-item">
+            <i class="fa-solid fa-clock"></i>
+            <span>
+              Mon – Sat: 11:00 AM – 8:00 PM
+              <div class="footer-hours">Sunday: Closed</div>
+            </span>
+          </div>
+          <div class="footer-info-item">
+            <i class="fa-brands fa-google"></i>
+            <span>Rated 4.9 ★ · 84+ Reviews</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Lata's Nail Studio & Academy. All rights reserved.</span>
+      <span>Crafted with <i class="fa-solid fa-heart" style="color:var(--rose);font-size:11px;"></i> in Mumbai</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Hamburger menu
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.add('open');
+  });
+  document.getElementById('mobileClose').addEventListener('click', () => closeMobile());
+  function closeMobile() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Smooth anchor scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
